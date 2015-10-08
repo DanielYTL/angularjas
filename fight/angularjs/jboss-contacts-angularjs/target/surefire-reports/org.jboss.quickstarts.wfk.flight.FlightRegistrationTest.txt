@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.jboss.quickstarts.wfk.flight.FlightRegistrationTest
+-------------------------------------------------------------------------------
+Tests run: 29, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.163 sec

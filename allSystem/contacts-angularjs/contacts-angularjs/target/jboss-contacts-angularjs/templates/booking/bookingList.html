@@ -1,0 +1,45 @@
+<div rh-message-bag messages="messages"></div>
+
+<div class="jumbotron">
+    <h2>Find Your Booking!</h2>
+    <div class="input-group">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+        <!-- Standard html text input, whose value is bound to a value in the Contacts controller, and used to filter contacts-->
+        <input type="text" class="form-control" placeholder="Search" name="contact-search-term" id="contact-search-term" ng-model="search">
+    </div>
+</div>
+
+<div>
+    <!-- A list of stored contacts -->
+    <div class="contact-list-heading clearfix">
+        <p class="pull-left">Booking {{(details)?'Details':'ID'}}</p>
+        <button class="btn pull-right" id="toggleDetails" ng-click="details=!details">
+            <span class="glyphicon {{(details)?'glyphicon-resize-small':'glyphicon-resize-full'}}"></span>
+        </button>
+    </div>
+    <ul class="contact-list letter-headings">
+        <li class="letter-heading" ng-repeat="(heading, subset) in contactsList | orderBy: bookingDate">
+            <p>{{heading}}</p>
+            <ul class="contacts">
+                <!-- The list is built using Angular's ng-repeat functionality, iterating over contact objects in contacts -->
+                <li class="contact" ng-repeat="contact in subset | orderBy: 'bookingDate'">
+                    <a href="#/editBooking/{{contact.id}}">{{contact.bookingDate}}</a>
+                    <div class="contact-details" ng-show="details">
+                        <p>
+                            <strong>{{contact.id}}</strong>
+                        </p>
+                        <p>
+                            Customer ID: {{contact.customer.id}} 
+                        </p>
+                        <p>    
+                            Hotel ID: {{contact.hotel.id}}
+                        </p>
+                        <p>
+                            {{contact.bookingDate}}
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

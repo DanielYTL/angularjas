@@ -1,0 +1,19 @@
+<!-- This is an Angular.js template -->
+<div class="form-group clearfix">
+    <div class="btn-group pull-right">
+        <!-- ng-disable conditionally applies the special attribute 'disabled'. -->
+        <!-- When clicked, execute $scope.addHotel() function. -->
+        <button class="btn btn-primary" id="save-button" ng-disabled="hotelForm.$invalid" ng-click="saveContact()">
+            <span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Save
+        </button>
+
+        <!-- When clicked, execute $scope.deleteHotel(). -->
+  <!--      <button class="btn btn-default" ng-click="deleteContact()">
+            <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
+        </button>
+-->
+        <a href="#/home" class="btn btn-default">
+            <span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Cancel
+        </a>
+    </div>
+</div>

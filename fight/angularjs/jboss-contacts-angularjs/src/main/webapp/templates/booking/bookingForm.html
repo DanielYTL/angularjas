@@ -1,0 +1,90 @@
+<!--
+    JBoss, Home of Professional Open Source
+    Copyright 2014, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<!-- This is an Angular.js template -->
+
+<!-- Status messages to be displayed -->
+<div rh-message-bag messages="messages"></div>
+
+<!-- This form is used to add new Booking entries. Upon loading all fields are empty. -->
+<form name="bookingForm" role="form" id="bookingForm">
+
+	<!-- Form group for First Name input and associated error messages. -->
+    <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
+    <div class="form-group" ng-class="{'has-error': bookingForm.customerID.$invalid}">
+        <label for="customerID">Customer ID:</label>
+        <!-- ng-pattern validates the contents of an input against a provided regexp. -->
+        <input type="text" name="customerID" class="form-control"  id="customerID" placeholder="Enter a customer ID, 5 digital number. e.g. 10001"
+               ng-model="booking.customerID.id" ng-pattern="/^[0-9]+$/" required>
+        <!-- Appropriate error messages, to be displayed as required. -->
+        <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
+        <p class="help-block" id="customerID-required" ng-show="bookingForm.customerID.$dirty && bookingForm.customerID.$error.required">
+            A customer id is required.
+        </p>
+        <p class="help-block" id="customerID-format" ng-show="bookingForm.customerID.$dirty && bookingForm.customerID.$error.pattern">
+            Please provide a customer id  with number and letters.
+        </p>
+    </div>
+
+
+	
+	
+	
+	<!-- Form group for Phone Number input and associated error messages. -->
+    <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
+    <div class="form-group" ng-class="{'has-error': bookingForm.flightID.$invalid}">
+        <label for="flightID">Flight ID:</label>
+        <!-- ng-pattern validates the contents of an input against a provided regexp. -->
+        <input type="text" name="flightID" class="form-control" id="flightID" placeholder="Enter a flight ID, 5 digital number. e.g. 20100"
+               ng-model="booking.flightID.id" ng-pattern="/^[0-9]+$/" required>
+        <!-- Appropriate error messages, to be displayed as required. -->
+        <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
+        <p class="help-block" id="flightID-required" ng-show="bookingForm.flightID.$dirty && bookingForm.flightID.$error.required">
+            A flight id is required.
+        </p>
+        <p class="help-block" id="flightID-format" ng-show="bookingForm.flightID.$dirty && bookingForm.flightID.$error.pattern">
+            Please a provide a valid flight id.
+        </p>
+    </div>
+
+    
+	<div class="form-group" ng-class="{'has-error': bookingForm.bookingDate.$invalid}">
+    	<label for="bookingDate">Booking Date:</label>
+    	<!-- min & max provide the valid range of dates for the input. -->
+    	<input type="date" name="bookingDate" class="form-control" id="bookingDate" max="2100-01-01"
+           min="{{date | date:'yyyy-MM-dd'}}" ng-model="booking.bookingDate" required>
+    	<!-- Appropriate error messages, to be displayed as required. -->
+    	<!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
+    	<p class="help-block" id="bookingDate-required" ng-show="bookingForm.bookingDate.$dirty && bookingForm.bookingDate.$error.required">
+        	Please enter a valid date.
+    	</p>
+   		
+   		<p class="help-block" id="bookingDate-max-age" ng-show="bookingForm.bookingDate.$dirty && bookingForm.bookingDate.$error.max">
+            Nobody is that old. Unless they are a vampire.
+        </p>
+        <p class="help-block" id="bookingDate-future" ng-show="bookingForm.bookingDate.$dirty && bookingForm.bookingDate.$error.min">
+            BookingDate can be in the future. Please choose one from the future. Unless they are a time traveler.
+        </p>
+</div>
+    <!-- Hidden form input for default (blank) booking.state value. -->
+    <input name="state" type="hidden" value="" ng-model="booking.state"/>
+
+
+    <!-- Load the appropriate form controls depending on whether the variable $scope.create is truthy -->
+    <div ng-if="create" ng-include="'templates/booking/addControls.html'"></div>
+    <div ng-if="!create" ng-include="'templates/booking/editControls.html'"></div>
+
+</form>

@@ -1,0 +1,65 @@
+<!-- Status messages to be displayed -->
+<div rh-message-bag messages="messages"></div>
+
+<!-- This form is used to add new Contact entries. Upon loading all fields are empty. -->
+<form name="hotelForm" role="form" id="hotelForm">
+
+    <!-- Form group for Hotel Name input and associated error messages. -->
+    <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
+    <div class="form-group" ng-class="{'has-error': hotelForm.hotelName.$invalid}">
+        <label for="hotelName">Hotel Name:</label>
+        <!-- ng-pattern validates the contents of an input against a provided regexp. -->
+        <input type="text" name="hotelName" class="form-control"  id="hotelName" placeholder="Enter a hotel name."
+               ng-model="contact.hotelName" ng-pattern="/^[A-Za-z]+$/" required>
+        <!-- Appropriate error messages, to be displayed as required. -->
+        <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
+        <p class="help-block" id="hotelName-required" ng-show="hotelForm.hotelName.$dirty && hotelForm.hotelName.$error.required">
+            A hotel name is required.
+        </p>
+        <p class="help-block" id="hotelName-format" ng-show="hotelForm.hotelName.$dirty && hotelForm.hotelName.$error.pattern">
+            Please provide a name without numbers or special characters.
+        </p>
+    </div>
+
+    <!-- Form group for Phone Number input and associated error messages. -->
+    <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
+    <div class="form-group" ng-class="{'has-error': hotelForm.phoneNumber.$invalid}">
+        <label for="phoneNumber">Phone:</label>
+        <!-- ng-pattern validates the contents of an input against a provided regexp. -->
+        <input type="text" name="phoneNumber" class="form-control" id="phoneNumber" placeholder="(NNN) NNNN-NNNN"
+               ng-model="contact.phoneNumber" ng-pattern="/^\([0][0-9][0-9]\)\s?[0-9]{4}\-[0-9]{4}$/" required>
+        <!-- Appropriate error messages, to be displayed as required. -->
+        <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
+        <p class="help-block" id="phoneNumber-required" ng-show="hotelForm.phoneNumber.$dirty && hotelForm.phoneNumber.$error.required">
+            A phone number is required.
+        </p>
+        <p class="help-block" id="phoneNumber-format" ng-show="hotelForm.phoneNumber.$dirty && hotelForm.phoneNumber.$error.pattern">
+            Please a provide a valid number in the format (NNN) NNNN-NNNN starting with 0.
+        </p>
+    </div>
+
+    <!-- Form group for Email input and associated error messages. -->
+    <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
+    <div class="form-group" ng-class="{'has-error': hotelForm.postcode.$invalid}">
+        <label for="postcode">Postcode:</label>
+        <input type="postcode" name="postcode" class="form-control" id="postcode" placeholder="6 characters alpha-numerical string"
+               ng-model="contact.postcode" required>
+        <!-- Appropriate error messages, to be displayed as required. -->
+        <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
+        <p class="help-block" id="postcode-required" ng-show="hotelForm.postcode.$dirty && hotelForm.postcode.$error.required">
+            Please enter a valid postcode address.
+        </p>
+        <p class="help-block" id="postcode-format" ng-show="hotelForm.postcode.$dirty && hotelForm.postcode.$error.postcode">
+            The postcode  must be an alpha-numerical string which is 6 characters in length.
+        </p>
+    </div>
+
+
+    <!-- Hidden form input for default (blank) contact.state value. -->
+    <input name="state" type="hidden" value="" ng-model="contact.state"/>
+
+    <!-- Load the appropriate form controls depending on whether the variable $scope.create is truthy -->
+    <div ng-if="create" ng-include="'templates/hotel/addHotel.html'"></div>
+    <div ng-if="!create" ng-include="'templates/hotel/editHotel.html'"></div>
+
+</form>
